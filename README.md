@@ -20,6 +20,8 @@ We will "misuse" the launcher provided by discourse_docker to create the docker 
 
 1. Clone from [https://github.com/discourse/discourse_docker](https://github.com/discourse/discourse_docker) to local environment
 1. Setup temp Redis and Postgres in a local environment
+    1. `sudo docker run --name discourse-postgres -e POSTGRES_PASSWORD= -e POSTGRES_USER=chpapa -e POSTGRES_DB=chpapa -p 5432:5432 -d postgres` 
+    1. `sudo docker run --name discourse-redis -p 6379 -d redis`
 1. Create `containers/web_only.yml` as shown below
     1. The env var is not relevant to k8s, just for building the local image, fill in something works for your local environment
     1. Determine the plugins you want to install with your discourse setting here
@@ -46,11 +48,11 @@ env:
   UNICORN_WORKERS: 2
   DISCOURSE_DB_USERNAME: chpapa
   DISCOURSE_DB_PASSWORD: ''
-  DISCOURSE_DB_HOST: docker.for.mac.localhost
+  DISCOURSE_DB_HOST: localhost
   DISCOURSE_DB_NAME: chpapa
-  DISCOURSE_DEVELOPER_EMAILS: 'bencheng@oursky.com'
+  DISCOURSE_DEVELOPER_EMAILS: 'example@example.com'
   DISCOURSE_HOSTNAME: 'localhost'
-  DISCOURSE_REDIS_HOST: docker.for.mac.localhost
+  DISCOURSE_REDIS_HOST: localhost
 
 hooks:
   after_code:
