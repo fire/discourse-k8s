@@ -22,7 +22,7 @@ We will "misuse" the launcher provided by discourse_docker to create the docker 
 1. Setup temp Redis and Postgres in a local environment
     1. `sudo docker run --name discourse-postgres -e POSTGRES_PASSWORD= -e POSTGRES_USER=chpapa -e POSTGRES_DB=chpapa -p 5432:5432 -d postgres` 
     1. `sudo docker run --name discourse-redis -p 6379 -d redis`
-    1. Remember to shutdown docker instances after the images is built.
+    1. Remember to shutdown docker instances after the images are built.
 1. Create `containers/web_only.yml` as shown below
     1. The env var is not relevant to k8s, just for building the local image, fill in something works for your local environment
     1. Determine the plugins you want to install with your discourse setting here
