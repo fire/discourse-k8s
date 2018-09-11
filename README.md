@@ -21,7 +21,7 @@ We will "misuse" the launcher provided by discourse_docker to create the docker 
 1. Clone from [https://github.com/discourse/discourse_docker](https://github.com/discourse/discourse_docker) to local environment
 1. Setup temp Redis and Postgres in a local environment
     1. `sudo docker run --name discourse-postgres -e POSTGRES_PASSWORD=chpapa -e POSTGRES_USER=chpapa -e POSTGRES_DB=chpapa -p 5432:5432 -d postgres ` 
-    1. `sudo docker run --name discourse-redis -p 6379:6379 -d redis redis-server`
+    1. Must use a host local redis instance.
     1. Ensure that firewalls are not preventing the connection to the ports.
     1. Remember to shutdown docker instances after the images are built.
 1. Create `containers/web_only.yml` as shown below
