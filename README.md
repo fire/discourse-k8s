@@ -1,13 +1,11 @@
-# Tutorial for Discourse Deployment on k8s
-
 ## Chibifire.com Edition
 
 This is the Chibifire.com edition.
 
 ## Why deploy discourse on k8s?
 
-1. We have a cluster for some random tools / staging deployment already. So it is actually cheaper to deploy on the existing cluster for a internal discourse
-2. My team use k8s a lot lately, although I haven't been doing any technical work for last few years, I still want to learn something new.
+1. We have a cluster for some random tools/staging deployment already. So it is actually cheaper to deploy on the existing cluster for an internal discourse
+2. My team uses k8s a lot lately, although I haven't been doing any technical work for the last few years, I still want to learn something new.
 
 ## Why and what is this tutorial about?
 
@@ -18,18 +16,18 @@ So here begin:
 
 ## Create Discourse App Docker Image
 
-We will "mis-use" the launcher provided by discourse_docker to create the docker image we want for the discourse web server.
+We will "misuse" the launcher provided by discourse_docker to create the docker image we want for the discourse web server.
 
 1. Clone from [https://github.com/discourse/discourse_docker](https://github.com/discourse/discourse_docker) to local environment
-1. Setup temp Redis and Postgres in local environment
+1. Setup temp Redis and Postgres in a local environment
 1. Create `containers/web_only.yml` as shown below
     1. The env var is not relevant to k8s, just for building the local image, fill in something works for your local environment
     1. Determine the plugins you want to install with your discourse setting here
-1. Tips: in case you download redis, it might be in protected mode and doesn't allow docker guest to host connection, start it with `redis-server --protected-mode no`
+1. Tips: in case you download Redis, it might be in protected mode and doesn't allow docker guest to host connection, start it with `redis-server --protected-mode no`
 1. Create the docker images and upload the images to your k8s docker registry. Let's say we are using Google Cloud Registry:
     1. Create docker image by discourse's launcher: `./launcher bootstrap web_only`
     1. Verify created: `docker images`
-    1. Upload image to registry with the commands below.
+    1. Upload image to a registry with the commands below.
 
 ```
 docker tag local_discourse/web_only gcr.io/**my-cluster**/discourse:latest
@@ -98,7 +96,7 @@ Customize the sample k8s file as follows, and the variables you probably want to
         * spec.claimRef.namespace
     * The sample file here assume using gcePersistentDisk. This file need to change heavily depends on what type of persistent disk you plan to use
 * redis.yaml
-    * Deployment (redis)
+    * Deployment (Redis)
         * spec.template.spec.containers.resources.* (CPU and Memory resources for cache server)
 * pgsql.yaml
     * PersistentVolumeClaim (pgsql-pv-claim)
@@ -128,7 +126,7 @@ unique one and add some labels.
 Apply secrets. dbUsername and dbPassword can be anything you want. Please set
 the right smtpUsername and smtpPassword for the mail delivery services you use.
 
-Another notes on HTTPS for ingress is, you should read [here](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls) and the Ingress controllers specific to your cluster and update ingress.yaml accordingly
+Another note on HTTPS for ingress is, you should read [here](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls) and the Ingress controllers specific to your cluster and update ingress.yaml accordingly
 
 ```
 [workspace] cat secret.yaml
@@ -192,7 +190,7 @@ kubectl exec -it **pg-sql** -- /bin/bash
 
 Discourse can use S3 for backup and files upload, here are the steps to enable it:
 
-1. Create two S3 bucket, one for backup, one for files upload. Set it as private.
+1. Create two S3 buckets, one for backup, one for files upload. Set it as private.
 2. Create an IAM user with API access only, attach the AWS inline policy below.
 3. Fill in the Access Key and Key ID in Discourse Setting.
 
@@ -231,5 +229,5 @@ AWS inline policy for S3 bucket access
 ## Potential improvement:
 
 * Run multiple replicas for Discourse web-server for scale up. It should works actually but just haven't tried.
-* Deploy Master-Slave PostgreSQL for scale up. We're using bitnami's postgreSQL docker image and the relevant instructions are here: https://github.com/bitnami/bitnami-docker-postgresql
+* Deploy Master-Slave PostgreSQL for scale up. We're using Bitnami's PostgreSQL docker image and the relevant instructions are here: https://github.com/bitnami/bitnami-docker-postgresql
 
