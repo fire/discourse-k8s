@@ -1,14 +1,18 @@
 # Tutorial for Discourse Deployment on k8s
 
-## Why I want to deploy discourse on k8s?
+## Chibifire.com Edition
+
+This is the Chibifire.com edition.
+
+## Why deploy discourse on k8s?
 
 1. We have a cluster for some random tools / staging deployment already. So it is actually cheaper to deploy on the existing cluster for a internal discourse
-2. My team use k8s a lot lately, although I haven't been doing any realy technical work for last few years, I still wanna learn something new.
+2. My team use k8s a lot lately, although I haven't been doing any technical work for last few years, I still want to learn something new.
 
 ## Why and what is this tutorial about?
 
 * There are no complete tutorial online for deploy discourse
-* This tutorial and sample config below, deploy single discourse web-server, connects to postgreSQL and redis server, and assume you're using Google Cloud Registry and gcePersistentDisk.
+* This tutorial and sample config below, deploy single discourse web-server, connects to PostgreSQL and Redis server, and assume you're using Google Cloud Registry and gcePersistentDisk.
 
 So here begin:
 
@@ -31,7 +35,6 @@ We will "mis-use" the launcher provided by discourse_docker to create the docker
 docker tag local_discourse/web_only gcr.io/**my-cluster**/discourse:latest
 gcloud docker -- push gcr.io/**my-cluster**/discourse:latest
 ```
-
 
 web_only.yml here
 
