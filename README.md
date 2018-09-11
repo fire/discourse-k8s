@@ -9,7 +9,7 @@ This is the Chibifire.com edition.
 
 ## Why and what is this tutorial about?
 
-* There are no complete tutorial online for deploy discourse
+* There are no complete tutorials online for deploying discourse.
 * This tutorial and sample config below, deploy single discourse web-server, connects to PostgreSQL and Redis server, and assume you're using Google Cloud Registry and gcePersistentDisk.
 
 So here begin:
