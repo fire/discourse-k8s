@@ -50,11 +50,11 @@ env:
   UNICORN_WORKERS: 2
   DISCOURSE_DB_USERNAME: chpapa
   DISCOURSE_DB_PASSWORD: 'chpapa'
-  DISCOURSE_DB_HOST: localhost
+  DISCOURSE_DB_HOST: localhost.example.com
   DISCOURSE_DB_NAME: chpapa
   DISCOURSE_DEVELOPER_EMAILS: 'example@example.com'
   DISCOURSE_HOSTNAME: 'localhost'
-  DISCOURSE_REDIS_HOST: localhost
+  DISCOURSE_REDIS_HOST: localhost.example.com
 
 hooks:
   after_code:
